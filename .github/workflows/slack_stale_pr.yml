@@ -9,6 +9,12 @@ jobs:
   fetch-PRs:
     runs-on: ubuntu-latest
     steps:
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Fetch pull requests
         id: local
         uses: bretg/stale-pr-finder@main
