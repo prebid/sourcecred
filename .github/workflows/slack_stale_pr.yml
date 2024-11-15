@@ -19,6 +19,6 @@ jobs:
         uses: slackapi/slack-github-action@v1.27.1
         with:
           channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
-          slack-message: "Stale PRs in sourcecred repo: \n${{ steps.local.outputs.message }}"
+          slack-message: "Stale PRs in the {{ github.event.repository.name }} repo: \n${{ steps.local.outputs.message }}"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
