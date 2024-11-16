@@ -11,10 +11,11 @@ jobs:
     steps:
       - name: Fetch pull requests
         id: local
-        uses: paritytech/stale-pr-finder@main
+        uses: bretg/stale-pr-finder@main
         with:
           GITHUB_TOKEN: ${{ github.token }}
           days-stale: 14
+          ignoredLabels: javascript
       - name: Post to a Slack channel
         id: slack
         uses: slackapi/slack-github-action@v1.27.1
