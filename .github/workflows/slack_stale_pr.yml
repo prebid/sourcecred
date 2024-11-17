@@ -16,11 +16,11 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           days-stale: 14
           ignoredLabels: 'javascript'
-      - name: Post to a Slack channel
-        id: slack
-        uses: slackapi/slack-github-action@v1.27.1
-        with:
-          channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
-          slack-message: "${{ steps.local.outputs.message }}"
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+#      - name: Post to a Slack channel
+#        id: slack
+#        uses: slackapi/slack-github-action@v1.27.1
+#        with:
+#          channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
+#          slack-message: "${{ steps.local.outputs.message }}"
+#        env:
+#          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
