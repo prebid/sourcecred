@@ -15,7 +15,7 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ github.token }}
           days-stale: 14
-          ignoredLabels: 'javascript'
+          ignoredLabels: 'good first issue'
       - name: Post to a Slack channel
         id: slack
         uses: slackapi/slack-github-action@v1.27.1
