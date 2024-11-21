@@ -199,5 +199,4 @@ You've set up a SourceCred instance! We'd love to know you're out there. _**Intr
 If you want to go deeper, you can access lower-level commands in the SourceCred CLI in the form of: `yarn sourcecred <command>`.
 For a list of what's available, and what each command does, run `yarn sourcecred help`. Then run `yarn sourcecred help <command name>` to see what feature flags are available for each command.
 
-
 [yarn]: https://classic.yarnpkg.com/
