@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Fetch pull requests
         id: local
-        uses: bretg/stale-pr-finder@main
+        uses: paritytech/stale-pr-finder@main
         with:
           GITHUB_TOKEN: ${{ github.token }}
           days-stale: 14
