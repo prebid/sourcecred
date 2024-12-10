@@ -6,8 +6,8 @@ NOTIFICATION_FILE="codepath-notification"
 # SMTP Configuration
 SMTP_SERVER="smtp.google.com"
 SMTP_PORT="587"
-USERNAME="${{ secrets.EMAIL_USERNAME }}"
-PASSWORD="${{ secrets.EMAIL_PASSWORD }}"
+USERNAME="$EMAIL_USERNAME"
+PASSWORD="$EMAIL_PASSWORD"
 FROM_EMAIL="info@prebid.org"
 
 # Git command to get the list of changed files in the merge request
