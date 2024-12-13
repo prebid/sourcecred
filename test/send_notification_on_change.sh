@@ -12,9 +12,9 @@ FROM_EMAIL="info@prebid.org"
 
 # Git command to get the list of changed files in the merge request
 echo "git branch"
-echo $(git branch -r)
+echo $(git branch -a)
 echo "---"
-CHANGED_FILES=$(git diff --name-only origin)
+CHANGED_FILES=$(git diff --name-only origin/main)
 # Associative array to store file changes by email
 declare -A EMAIL_BUCKETS
 
