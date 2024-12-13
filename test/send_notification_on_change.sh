@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Path to the codepath-notification file
-NOTIFICATION_FILE="codepath-notification"
+NOTIFICATION_FILE="test/codepath-notification"
 
 # SMTP Configuration
 SMTP_SERVER="smtp.google.com"
@@ -11,7 +11,10 @@ PASSWORD="$EMAIL_PASSWORD"
 FROM_EMAIL="info@prebid.org"
 
 # Git command to get the list of changed files in the merge request
-CHANGED_FILES=$(git diff --name-only origin/main...HEAD)
+echo "git branch"
+echo $(git branch -r)
+echo "---"
+CHANGED_FILES=$(git diff --name-only origin)
 # Associative array to store file changes by email
 declare -A EMAIL_BUCKETS
 
