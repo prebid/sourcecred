@@ -26,7 +26,7 @@ jobs:
           node-version: '16'
 
       - name: Install dependencies
-        run: npm install axios
+        run: npm install axios nodemailer
 
       - name: Run Notification Script
         run: |
