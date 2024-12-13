@@ -2,6 +2,7 @@ name: Notify Code Path Changes
 
 on:
   pull_request:
+    types: [opened, synchronize]
     paths:
       - '**'
 
@@ -18,6 +19,14 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
+
+      - name: Set up Node.js (if using JavaScript/Node.js script)
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install axios
 
       - name: Run Notification Script
         run: |
