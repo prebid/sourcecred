@@ -8,6 +8,9 @@ on:
 env:
   EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
   EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+  GITHUB_REPOSITORY: ${{ github.repository }}
+  GITHUB_PR_NUMBER: ${{ github.event.pull_request.number }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   notify:
@@ -18,5 +21,6 @@ jobs:
 
       - name: Run Notification Script
         run: |
+          node test/send-notification-on-change.js
           chmod +x test/send_notification_on_change.sh
           ./test/send_notification_on_change.sh

@@ -14,7 +14,7 @@ FROM_EMAIL="info@prebid.org"
 echo "git branch"
 echo $(git branch -a)
 echo "---"
-CHANGED_FILES=$(git diff --name-only origin/main)
+CHANGED_FILES=$(git diff --name-only)
 # Associative array to store file changes by email
 declare -A EMAIL_BUCKETS
 
