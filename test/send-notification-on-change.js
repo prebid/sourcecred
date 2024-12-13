@@ -57,13 +57,13 @@ const nodemailer = require('nodemailer');
     console.log('Grouped matches by email:', matchesByEmail);
 
     // Configure Nodemailer
-//    const transporter = nodemailer.createTransport({
-//      service: 'Gmail',
-//      auth: {
-//        user: process.env.EMAIL_USER,
-//        pass: process.env.EMAIL_PASS,
-//      },
-//    });
+    const transporter = nodemailer.createTransport({
+      service: 'Gmail',
+      auth: {
+        user: process.env.EMAIL_USERNAME,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
 
     // Send one email per recipient
     for (const [email, files] of Object.entries(matchesByEmail)) {
@@ -75,12 +75,12 @@ const nodemailer = require('nodemailer');
       `;
 
       try {
- //       await transporter.sendMail({
- //         from: `"GitHub Bot" <${process.env.EMAIL_USER}>`,
- //         to: email,
- //         subject: `Files Changed in PR #${prNumber}`,
- //         html: emailBody,
- //       });
+        await transporter.sendMail({
+          from: `"GitHub Bot" <${process.env.EMAIL_USERNAME}>`,
+          to: email,
+          subject: `Files Changed in PR #${prNumber}`,
+          html: emailBody,
+        });
 
         console.log(`Email sent successfully to ${email}`);
         console.log(`${emailBody}`);

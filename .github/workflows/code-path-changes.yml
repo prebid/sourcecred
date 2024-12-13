@@ -31,5 +31,3 @@ jobs:
       - name: Run Notification Script
         run: |
           node test/send-notification-on-change.js
-          chmod +x test/send_notification_on_change.sh
-          ./test/send_notification_on_change.sh
