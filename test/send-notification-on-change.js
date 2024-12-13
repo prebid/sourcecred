@@ -4,7 +4,7 @@ const axios = require('axios');
 const nodemailer = require('nodemailer');
 
 (async () => {
-  const configFilePath = path.join(__dirname, 'test/codepath-notification');
+  const configFilePath = path.join(__dirname, 'codepath-notification');
   const repo = process.env.GITHUB_REPOSITORY;
   const prNumber = process.env.GITHUB_PR_NUMBER;
   const token = process.env.GITHUB_TOKEN;
