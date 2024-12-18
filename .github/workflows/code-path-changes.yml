@@ -7,8 +7,9 @@ on:
       - '**'
 
 env:
-  EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
-  EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+  OAUTH2_CLIENT_ID: : ${{ secrets.OAUTH2_CLIENT_ID }}
+  OAUTH2_CLIENT_SECRET: : ${{ secrets.OAUTH2_CLIENT_SECRET }}
+  OAUTH2_REFRESH_TOKEN: : ${{ secrets.OAUTH2_REFRESH_TOKEN }}
   GITHUB_REPOSITORY: ${{ github.repository }}
   GITHUB_PR_NUMBER: ${{ github.event.pull_request.number }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -26,7 +27,7 @@ jobs:
           node-version: '16'
 
       - name: Install dependencies
-        run: npm install axios nodemailer
+        run: npm install axios nodemailer googleapis
 
       - name: Run Notification Script
         run: |

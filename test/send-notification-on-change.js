@@ -3,6 +3,22 @@ const path = require('path');
 const axios = require('axios');
 const nodemailer = require('nodemailer');
 
+async function getAccessToken(clientId, clientSecret, refreshToken) {
+  try {
+    const response = await axios.post('https://oauth2.googleapis.com/token', {
+      client_id: clientId,
+      client_secret: clientSecret,
+      refresh_token: refreshToken,
+      grant_type: 'refresh_token',
+    });
+
+    return response.data.access_token;
+  } catch (error) {
+    console.error('Failed to fetch access token:', error.response?.data || error.message);
+    process.exit(1);
+  }
+}
+
 (async () => {
   const configFilePath = path.join(__dirname, 'codepath-notification');
   const repo = process.env.GITHUB_REPOSITORY;
@@ -56,12 +72,23 @@ const nodemailer = require('nodemailer');
 
     console.log('Grouped matches by email:', matchesByEmail);
 
-    // Configure Nodemailer
+    // Generate OAuth2 access token
+    const CLIENT_ID = process.env.OAUTH2_CLIENT_ID;
+    const CLIENT_SECRET = process.env.OAUTH2_CLIENT_SECRET;
+    const REFRESH_TOKEN = process.env.OAUTH2_REFRESH_TOKEN;
+
+    const accessToken = await getAccessToken(CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN);
+
+    // Configure Nodemailer with OAuth2
     const transporter = nodemailer.createTransport({
       service: 'Gmail',
       auth: {
-        user: process.env.EMAIL_USERNAME,
-        pass: process.env.EMAIL_PASSWORD,
+        type: 'OAuth2',
+        user: 'info@prebid.org',
+        clientId: CLIENT_ID,
+        clientSecret: CLIENT_SECRET,
+        refreshToken: REFRESH_TOKEN,
+        accessToken,
       },
     });
 
@@ -76,7 +103,7 @@ const nodemailer = require('nodemailer');
 
       try {
         await transporter.sendMail({
-          from: `"GitHub Bot" <${process.env.EMAIL_USERNAME}>`,
+          from: `"GitHub Bot" <info@prebid.org>`,
           to: email,
           subject: `Files Changed in PR #${prNumber}`,
           html: emailBody,
@@ -93,3 +120,4 @@ const nodemailer = require('nodemailer');
     process.exit(1);
   }
 })();
+
