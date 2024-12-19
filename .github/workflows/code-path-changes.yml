@@ -31,4 +31,4 @@ jobs:
 
       - name: Run Notification Script
         run: |
-          node test/send-notification-on-change.js
+          node .github/workflows/scripts/send-notification-on-change.js
