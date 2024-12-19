@@ -1,2 +1,2 @@
-codepath: bgorsline@magnite.com
+\.yml$|\.js$: bgorsline@magnite.com
 ^.github/.*$: bgorsline@prebid.org
