@@ -72,6 +72,12 @@ async function getAccessToken(clientId, clientSecret, refreshToken) {
       });
     });
 
+    // Exit successfully if no matches are found
+    if (Object.keys(matchesByEmail).length === 0) {
+      console.log('No matches found. Exiting successfully.');
+      process.exit(0);
+    }
+
     console.log('Grouped matches by email:', matchesByEmail);
 
     const accessToken = await getAccessToken(CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN);
