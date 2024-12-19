@@ -82,8 +82,11 @@ async function getAccessToken(clientId, clientSecret, refreshToken) {
     console.log("got accessToken: " + accessToken);
 
     // Configure Nodemailer with OAuth2
+    //  service: 'Gmail',
     const transporter = nodemailer.createTransport({
-      service: 'Gmail',
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
       auth: {
         type: 'OAuth2',
         user: 'info@prebid.org',
