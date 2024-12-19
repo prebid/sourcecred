@@ -89,6 +89,7 @@ async function getAccessToken(clientId, clientSecret, refreshToken) {
         user: 'info@prebid.org',
         clientId: CLIENT_ID,
         clientSecret: CLIENT_SECRET,
+        refreshToken: REFRESH_TOKEN,
         accessToken: accessToken
       },
     });
