@@ -11,7 +11,6 @@ async function getAccessToken(clientId, clientSecret, refreshToken) {
       refresh_token: refreshToken,
       grant_type: 'refresh_token',
     });
-    console.log("got access_token");
     return response.data.access_token;
   } catch (error) {
     console.error('Failed to fetch access token:', error.response?.data || error.message);
@@ -46,8 +45,6 @@ async function getAccessToken(clientId, clientSecret, refreshToken) {
         return { regex: new RegExp(regex), email };
       });
 
-    console.log('Loaded configuration rules:', configRules);
-
     // Fetch changed files
     const [owner, repoName] = repo.split('/');
     const apiUrl = `https://api.github.com/repos/${owner}/${repoName}/pulls/${prNumber}/files`;
@@ -79,8 +76,6 @@ async function getAccessToken(clientId, clientSecret, refreshToken) {
 
     const accessToken = await getAccessToken(CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN);
 
-    console.log("got accessToken: " + accessToken);
-
     // Configure Nodemailer with OAuth2
     //  service: 'Gmail',
     const transporter = nodemailer.createTransport({
@@ -102,20 +97,17 @@ async function getAccessToken(clientId, clientSecret, refreshToken) {
       const emailBody = `
         ${email},
         <p>
-        Files owned by you have been changed in the Prebid repo ${repo}. The pull request is #${prNumber}.
-https://github.com/prebid/prebid-server/pull/4117
+        Files owned by you have been changed in open source ${repo}. The <a href="https://github.com/${repo}/pull/${prNumber}">pull request is #${prNumber}</a>. These are the files you own that have been modified:
         <ul>
           ${files.map(file => `<li>${file}</li>`).join('')}
         </ul>
       `;
 
-console.log("trying to send email to " + email);
-
       try {
         await transporter.sendMail({
           from: `"Prebid Info" <info@prebid.org>`,
           to: email,
-          subject: `Files you own have been changed in Prebid repo ${repo}`,
+          subject: `Files have been changed in open source ${repo}`,
           html: emailBody,
         });
 
