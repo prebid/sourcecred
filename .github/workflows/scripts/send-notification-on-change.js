@@ -1,3 +1,10 @@
+// send-notification-on-change.js
+//
+// called by the code-path-changes.yml workflow, this script queries github for
+// the changes in the current PR, checkes the config file for whether any of those
+// file paths are set to alert an email address, and sends email to multiple
+// parties if needed
+
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
