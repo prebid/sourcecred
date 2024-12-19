@@ -100,7 +100,10 @@ async function getAccessToken(clientId, clientSecret, refreshToken) {
     // Send one email per recipient
     for (const [email, files] of Object.entries(matchesByEmail)) {
       const emailBody = `
-        <h1>Files Changed in PR #${prNumber}</h1>
+        ${email},
+        <p>
+        Files owned by you have been changed in the Prebid repo ${repo}. The pull request is #${prNumber}.
+https://github.com/prebid/prebid-server/pull/4117
         <ul>
           ${files.map(file => `<li>${file}</li>`).join('')}
         </ul>
@@ -110,9 +113,9 @@ console.log("trying to send email to " + email);
 
       try {
         await transporter.sendMail({
-          from: `"GitHub Bot" <info@prebid.org>`,
+          from: `"Prebid Info" <info@prebid.org>`,
           to: email,
-          subject: `Files Changed in PR #${prNumber}`,
+          subject: `Files you own have been changed in Prebid repo ${repo}`,
           html: emailBody,
         });
 
