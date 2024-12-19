@@ -89,7 +89,7 @@ async function getAccessToken(clientId, clientSecret, refreshToken) {
       secure: true,
       auth: {
         type: 'OAuth2',
-        user: 'info@prebid.org',
+        user: 'bgorsline@prebid.org',
         clientId: CLIENT_ID,
         clientSecret: CLIENT_SECRET,
         refreshToken: REFRESH_TOKEN,
@@ -110,7 +110,7 @@ console.log("trying to send email to " + email);
 
       try {
         await transporter.sendMail({
-          from: `"GitHub Bot" <info@prebid.org>`,
+          from: `"GitHub Bot" <bgorsline@prebid.org>`,
           to: email,
           subject: `Files Changed in PR #${prNumber}`,
           html: emailBody,
