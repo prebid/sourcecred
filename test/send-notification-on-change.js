@@ -79,7 +79,7 @@ async function getAccessToken(clientId, clientSecret, refreshToken) {
 
     const accessToken = await getAccessToken(CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN);
 
-    console.log("got accessToken");
+    console.log("got accessToken: " + accessToken);
 
     // Configure Nodemailer with OAuth2
     const transporter = nodemailer.createTransport({
@@ -90,7 +90,7 @@ async function getAccessToken(clientId, clientSecret, refreshToken) {
         clientId: CLIENT_ID,
         clientSecret: CLIENT_SECRET,
         refreshToken: REFRESH_TOKEN,
-        accessToken,
+        accessToken
       },
     });
 
