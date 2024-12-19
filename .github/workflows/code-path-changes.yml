@@ -2,8 +2,17 @@ name: Notify Code Path Changes
 
 on:
   pull_request:
+    types: [opened, synchronize]
     paths:
       - '**'
+
+env:
+  OAUTH2_CLIENT_ID: ${{ secrets.OAUTH2_CLIENT_ID }}
+  OAUTH2_CLIENT_SECRET: ${{ secrets.OAUTH2_CLIENT_SECRET }}
+  OAUTH2_REFRESH_TOKEN: ${{ secrets.OAUTH2_REFRESH_TOKEN }}
+  GITHUB_REPOSITORY: ${{ github.repository }}
+  GITHUB_PR_NUMBER: ${{ github.event.pull_request.number }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   notify:
@@ -12,7 +21,14 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      - name: Set up Node.js (if using JavaScript/Node.js script)
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install axios nodemailer
+
       - name: Run Notification Script
         run: |
-          chmod +x test/send_notification_on_change.sh
-          ./test//send_notification_on_change.sh
+          node test/send-notification-on-change.js
