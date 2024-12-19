@@ -11,7 +11,7 @@ async function getAccessToken(clientId, clientSecret, refreshToken) {
       refresh_token: refreshToken,
       grant_type: 'refresh_token',
     });
-
+    console.log("got access_token");
     return response.data.access_token;
   } catch (error) {
     console.error('Failed to fetch access token:', error.response?.data || error.message);
@@ -25,7 +25,12 @@ async function getAccessToken(clientId, clientSecret, refreshToken) {
   const prNumber = process.env.GITHUB_PR_NUMBER;
   const token = process.env.GITHUB_TOKEN;
 
-  if (!repo || !prNumber || !token) {
+  // Generate OAuth2 access token
+  const CLIENT_ID = process.env.OAUTH2_CLIENT_ID;
+  const CLIENT_SECRET = process.env.OAUTH2_CLIENT_SECRET;
+  const REFRESH_TOKEN = process.env.OAUTH2_REFRESH_TOKEN;
+
+  if (!repo || !prNumber || !token || !CLIENT_ID || !CLIENT_SECRET | !REFRESH_TOKEN) {
     console.error('Missing required environment variables.');
     process.exit(1);
   }
@@ -72,12 +77,9 @@ async function getAccessToken(clientId, clientSecret, refreshToken) {
 
     console.log('Grouped matches by email:', matchesByEmail);
 
-    // Generate OAuth2 access token
-    const CLIENT_ID = process.env.OAUTH2_CLIENT_ID;
-    const CLIENT_SECRET = process.env.OAUTH2_CLIENT_SECRET;
-    const REFRESH_TOKEN = process.env.OAUTH2_REFRESH_TOKEN;
-
     const accessToken = await getAccessToken(CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN);
+
+    console.log("got accessToken");
 
     // Configure Nodemailer with OAuth2
     const transporter = nodemailer.createTransport({
@@ -100,6 +102,8 @@ async function getAccessToken(clientId, clientSecret, refreshToken) {
           ${files.map(file => `<li>${file}</li>`).join('')}
         </ul>
       `;
+
+console.log("trying to send email to " + email);
 
       try {
         await transporter.sendMail({
